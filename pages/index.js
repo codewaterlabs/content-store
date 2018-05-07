@@ -70,6 +70,22 @@ class EditToolbar extends React.Component {
                 <Button variant="flat" color="primary" onClick={() => this.props.onToggle("header-two")}>
                     Header
                 </Button>
+                <form action="/photos/upload" method="post" encType="multipart/form-data">
+                    <input
+                        accept="image/*"
+                        id="raised-button-file"
+                        multiple
+                        type="file"
+                        style={{ display: "none" }}
+                        name="photos"
+                    />
+                    <label htmlFor="raised-button-file">
+                        <Button variant="raised" component="span">
+                            Upload
+                    </Button>
+                    </label>
+                    <input type="submit" />
+                </form>
             </div>
         )
     }
