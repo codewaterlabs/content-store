@@ -1,18 +1,10 @@
-# import Post from "./generated/prisma.graphql"
+# import Post, Image from "./generated/prisma.graphql"
 
-type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
-  me: User
-}
-
-type Mutation {
-  signup(email: String!, password: String!, name: String!): AuthPayload!
-  login(email: String!, password: String!): AuthPayload!
-  createDraft(title: String!, text: String!): Post!
-  publish(id: ID!): Post!
-  deletePost(id: ID!): Post!
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  posts: [Post!]!
 }
 
 type AuthPayload {
@@ -20,9 +12,20 @@ type AuthPayload {
   user: User!
 }
 
-type User {
-  id: ID!
-  email: String!
-  name: String!
-  posts: [Post!]!
+scalar Upload
+
+type Mutation {
+  signup(email: String!, password: String!, name: String!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+  createDraft(title: String!, text: String!): Post!
+  publish(id: ID!): Post!
+  deletePost(id: ID!): Post!
+  uploadImage(image: Upload!): Image!
+}
+
+type Query {
+  feed: [Post!]!
+  drafts: [Post!]!
+  post(id: ID!): Post
+  me: User
 }

@@ -3,7 +3,7 @@ import { Prisma } from './generated/prisma'
 import resolvers from './resolvers'
 
 const server = new GraphQLServer({
-  typeDefs: './schema.graphql',
+  typeDefs: './src/schema.graphql',
   resolvers,
   context: req => ({
     ...req,

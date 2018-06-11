@@ -4,6 +4,9 @@ import { RichUtils, Editor, EditorState, convertFromRaw, convertToRaw } from 'dr
 import Head from 'next/head';
 import Button from 'material-ui/Button';
 import withRoot from '../src/withRoot';
+import DropZone from 'react-dropzone';
+import { Mutation } from 'react-apollo';
+import { gql } from 'apollo-boost';
 
 const emptyContentState = convertFromRaw({
     entityMap: {},
@@ -70,26 +73,34 @@ class EditToolbar extends React.Component {
                 <Button variant="flat" color="primary" onClick={() => this.props.onToggle("header-two")}>
                     Header
                 </Button>
-                <form action="/photos/upload" method="post" encType="multipart/form-data">
-                    <input
-                        accept="image/*"
-                        id="raised-button-file"
-                        multiple
-                        type="file"
-                        style={{ display: "none" }}
-                        name="photos"
-                    />
-                    <label htmlFor="raised-button-file">
-                        <Button variant="raised" component="span">
-                            Upload
-                    </Button>
-                    </label>
-                    <input type="submit" />
-                </form>
             </div>
         )
     }
 }
+
+const uploadFileMutation = gql`
+    mutation($image: Upload!) {
+        uploadImage(image: $image) {
+            id
+        }
+    }
+`;
+
+const onDrop = (acceptedFiles, rejectedFiles) => {
+
+}
+
+const ImageUpload = () =>
+    <Mutation mutation={uploadFileMutation}>
+        {mutate => (
+            <DropZone onDrop={(acceptedFiles, rejectedFiles) => {
+                const image = acceptedFiles[0];
+                mutate({ variables: { image } })
+            }}>
+                <p>Upload image</p>
+            </DropZone>
+        )}
+    </Mutation>
 
 class MyEditor extends React.Component {
     constructor(props) {
@@ -115,10 +126,11 @@ class MyEditor extends React.Component {
         return (
             <div>
                 <Head>
-                    <meta charset="utf-8" />
+                    <meta charSet="utf-8" />
                     <link key="draftcss" rel="stylesheet" href="/static/Draft.css" />
                 </Head>
                 <EditToolbar onToggle={this.toggleBlock} />
+                <ImageUpload />
                 <div style={{ border: '1px solid black', padding: 10 }}>
                     <Editor
                         editorKey="editor1"

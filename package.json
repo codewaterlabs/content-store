@@ -5,9 +5,15 @@
   "author": "Gudmund Vatn",
   "license": "MIT",
   "dependencies": {
+    "apollo-boost": "^0.1.7",
+    "apollo-link-http": "^1.5.4",
+    "apollo-upload-client": "^8.0.0",
     "draft-js": "^0.10.5",
     "express": "^4.16.3",
+    "graphql": "^0.13.2",
     "graphql-yoga": "^1.13.1",
+    "http-fetch": "^0.1.9",
+    "isomorphic-unfetch": "^2.0.0",
     "jss": "^9.8.1",
     "material-ui": "^1.0.0-beta.45",
     "multer": "^1.3.0",
@@ -15,7 +21,9 @@
     "prisma-binding": "^2.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
+    "react-apollo": "^2.1.4",
     "react-dom": "^16.3.2",
+    "react-dropzone": "^4.2.11",
     "react-jss": "^8.4.0"
   },
   "scripts": {

@@ -26,7 +26,8 @@ scalar DateTime
 type Image implements Node {
   id: ID!
   filename: String!
-  uploaded: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """
@@ -46,7 +47,6 @@ type ImageConnection {
 
 input ImageCreateInput {
   filename: String!
-  uploaded: DateTime!
 }
 
 """
@@ -68,18 +68,17 @@ enum ImageOrderByInput {
   id_DESC
   filename_ASC
   filename_DESC
-  uploaded_ASC
-  uploaded_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ImagePreviousValues {
   id: ID!
   filename: String!
-  uploaded: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ImageSubscriptionPayload {
@@ -123,7 +122,6 @@ input ImageSubscriptionWhereInput {
 
 input ImageUpdateInput {
   filename: String
-  uploaded: DateTime
 }
 
 input ImageWhereInput {
@@ -245,35 +243,64 @@ input ImageWhereInput {
   All values not ending with the given string.
   """
   filename_not_ends_with: String
-  uploaded: DateTime
+  createdAt: DateTime
   """
   All values that are not equal to given value.
   """
-  uploaded_not: DateTime
+  createdAt_not: DateTime
   """
   All values that are contained in given list.
   """
-  uploaded_in: [DateTime!]
+  createdAt_in: [DateTime!]
   """
   All values that are not contained in given list.
   """
-  uploaded_not_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
   """
   All values less than the given value.
   """
-  uploaded_lt: DateTime
+  createdAt_lt: DateTime
   """
   All values less than or equal the given value.
   """
-  uploaded_lte: DateTime
+  createdAt_lte: DateTime
   """
   All values greater than the given value.
   """
-  uploaded_gt: DateTime
+  createdAt_gt: DateTime
   """
   All values greater than or equal the given value.
   """
-  uploaded_gte: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  """
+  All values that are not equal to given value.
+  """
+  updatedAt_not: DateTime
+  """
+  All values that are contained in given list.
+  """
+  updatedAt_in: [DateTime!]
+  """
+  All values that are not contained in given list.
+  """
+  updatedAt_not_in: [DateTime!]
+  """
+  All values less than the given value.
+  """
+  updatedAt_lt: DateTime
+  """
+  All values less than or equal the given value.
+  """
+  updatedAt_lte: DateTime
+  """
+  All values greater than the given value.
+  """
+  updatedAt_gt: DateTime
+  """
+  All values greater than or equal the given value.
+  """
+  updatedAt_gte: DateTime
 }
 
 input ImageWhereUniqueInput {
@@ -1176,12 +1203,10 @@ export type ImageOrderByInput =
   'id_DESC' |
   'filename_ASC' |
   'filename_DESC' |
-  'uploaded_ASC' |
-  'uploaded_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export type MutationType = 
   'CREATED' |
@@ -1454,14 +1479,22 @@ export interface ImageWhereInput {
   filename_not_starts_with?: String
   filename_ends_with?: String
   filename_not_ends_with?: String
-  uploaded?: DateTime
-  uploaded_not?: DateTime
-  uploaded_in?: DateTime[] | DateTime
-  uploaded_not_in?: DateTime[] | DateTime
-  uploaded_lt?: DateTime
-  uploaded_lte?: DateTime
-  uploaded_gt?: DateTime
-  uploaded_gte?: DateTime
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
 }
 
 export interface UserCreateWithoutPostsInput {
@@ -1483,12 +1516,10 @@ export interface PostCreateWithoutAuthorInput {
 
 export interface ImageCreateInput {
   filename: String
-  uploaded: DateTime
 }
 
 export interface ImageUpdateInput {
   filename?: String
-  uploaded?: DateTime
 }
 
 export interface ImageSubscriptionWhereInput {
@@ -1524,13 +1555,15 @@ export interface Node {
 export interface ImagePreviousValues {
   id: ID_Output
   filename: String
-  uploaded: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 export interface Image extends Node {
   id: ID_Output
   filename: String
-  uploaded: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 export interface Post extends Node {

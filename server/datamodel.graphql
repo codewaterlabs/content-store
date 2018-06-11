@@ -19,5 +19,6 @@ type User {
 type Image {
   id: ID! @unique
   filename: String!
-  uploaded: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
