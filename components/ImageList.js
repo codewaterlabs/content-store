@@ -3,6 +3,7 @@ import { Query, Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import GridList from 'material-ui/GridList';
 import GridListTile from 'material-ui/GridList/GridListTile';
+import queries from '../queries/ImageList'
 
 const uploadFileMutation = gql`
     mutation($image: Upload!) {
@@ -18,21 +19,17 @@ const ImageUpload = () => (
         {mutate => (
             <DropZone onDrop={(acceptedFiles, rejectedFiles) => {
                 const image = acceptedFiles[0];
-                mutate({ variables: { image } })
+                mutate({
+                    variables: { image },
+                    refetchQueries: [{
+                        query: queries.IMAGE_LIST
+                    }]
+                })
             }}>
                 <p>Upload image</p>
             </DropZone>
         )}
     </Mutation>);
-
-const IMAGE_LIST = gql`
-    {
-        images {
-            id,
-            filename
-        }
-    }
-`;
 
 class ImageList extends React.Component {
     constructor() {
@@ -41,7 +38,7 @@ class ImageList extends React.Component {
 
     render() {
         return (
-            <Query query={IMAGE_LIST}>
+            <Query query={queries.IMAGE_LIST}>
                 {({ loading, error, data }) => {
                     if (loading) return 'Loading...';
                     if (error) return `Error! ${error.message}`;

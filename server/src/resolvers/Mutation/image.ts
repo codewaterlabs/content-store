@@ -24,4 +24,15 @@ export const image = {
             info
         )
     },
+    async deleteImage(parent, { id }, ctx: Context, info) {
+        //const userId = getUserId(ctx)
+        const imageExists = await ctx.db.exists.Image({
+            id,
+        })
+        if (!imageExists) {
+            throw new Error(`Image not found`)
+        }
+
+        return ctx.db.mutation.deleteImage({ where: { id } })
+    },
 }
