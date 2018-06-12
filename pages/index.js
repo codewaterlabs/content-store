@@ -9,6 +9,7 @@ import { Query, Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import GridList from 'material-ui/GridList';
 import GridListTile from 'material-ui/GridList/GridListTile';
+import HeaderInput from '../components/HeaderInput';
 
 class ImageList extends React.Component {
     constructor() {
@@ -116,7 +117,7 @@ const onDrop = (acceptedFiles, rejectedFiles) => {
 
 }
 
-const ImageUpload = () =>
+const ImageUpload = () => (
     <Mutation mutation={uploadFileMutation}>
         {mutate => (
             <DropZone onDrop={(acceptedFiles, rejectedFiles) => {
@@ -126,7 +127,8 @@ const ImageUpload = () =>
                 <p>Upload image</p>
             </DropZone>
         )}
-    </Mutation>
+    </Mutation>);
+
 
 class MyEditor extends React.Component {
     constructor(props) {
@@ -155,6 +157,7 @@ class MyEditor extends React.Component {
                     <meta charSet="utf-8" />
                     <link key="draftcss" rel="stylesheet" href="/static/Draft.css" />
                 </Head>
+                <HeaderInput />
                 <EditToolbar onToggle={this.toggleBlock} />
                 <ImageUpload />
                 <ImageList />
