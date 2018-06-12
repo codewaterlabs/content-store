@@ -5,8 +5,38 @@ import Head from 'next/head';
 import Button from 'material-ui/Button';
 import withRoot from '../src/withRoot';
 import DropZone from 'react-dropzone';
-import { Mutation } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import GridList from 'material-ui/GridList';
+import GridListTile from 'material-ui/GridList/GridListTile';
+
+class ImageList extends React.Component {
+    constructor() {
+        super();
+    }
+
+    render() {
+        return (
+            <Query query={IMAGE_LIST}>
+                {({ loading, error, data }) => {
+                    if (loading) return 'Loading...';
+                    if (error) return `Error! ${error.message}`;
+                    return (
+                        <div>
+                            <GridList cols={3}>
+                                {data.images.map(image => (
+                                    <GridListTile key={image.id}>
+                                        <img src={`/uploads/${image.filename}`} />
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                        </div>
+                    )
+                }}
+            </Query>
+        )
+    }
+}
 
 const emptyContentState = convertFromRaw({
     entityMap: {},
@@ -48,18 +78,14 @@ class EditButton extends React.Component {
     }
 }
 
-class ImageList extends React.Component {
-    constructor() {
-        super();
+const IMAGE_LIST = gql`
+    {
+        images {
+            id,
+            filename
+        }
     }
-
-    render() {
-        return (
-            <div>
-            </div>
-        )
-    }
-}
+`;
 
 class EditToolbar extends React.Component {
     constructor() {
@@ -131,6 +157,7 @@ class MyEditor extends React.Component {
                 </Head>
                 <EditToolbar onToggle={this.toggleBlock} />
                 <ImageUpload />
+                <ImageList />
                 <div style={{ border: '1px solid black', padding: 10 }}>
                     <Editor
                         editorKey="editor1"

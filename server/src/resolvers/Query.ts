@@ -22,6 +22,10 @@ export const Query = {
     return ctx.db.query.post({ where: { id: id } }, info)
   },
 
+  images(parent, args, ctx: Context, info) {
+    return ctx.db.query.images({}, info)
+  },
+
   me(parent, args, ctx: Context, info) {
     const id = getUserId(ctx)
     return ctx.db.query.user({ where: { id } }, info)

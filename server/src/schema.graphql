@@ -27,5 +27,6 @@ type Query {
   feed: [Post!]!
   drafts: [Post!]!
   post(id: ID!): Post
+  images: [Image]!
   me: User
 }

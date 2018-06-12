@@ -16,7 +16,7 @@ function create(initialState) {
         connectToDevTools: process.browser,
         ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
         link: createUploadLink({
-            uri: 'http://127.0.0.1:4000', // Server URL (must be absolute)
+            uri: 'http://localhost:4000', // Server URL (must be absolute)
             credentials: 'same-origin' // Additional fetch() options like `credentials` or `headers`
         }),
         cache: new InMemoryCache().restore(initialState || {}),
