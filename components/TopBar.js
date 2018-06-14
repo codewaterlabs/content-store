@@ -30,6 +30,7 @@ export default class TopBar extends React.Component {
     }
 
     render() {
+        const user = localStorage.getItem('user');
         return (
             <div>
                 <AppBar position="static">
@@ -38,6 +39,7 @@ export default class TopBar extends React.Component {
                         <Button onClick={this.handleSignupOpen}>Create user</Button>
                         <LoginDialog open={this.state.loginOpen} handleClose={this.handleLoginClose} />
                         <SignupDialog open={this.state.signupOpen} handleClose={this.handleSignupClose} />
+                        {user && user}
                     </Toolbar>
                 </AppBar>
             </div>

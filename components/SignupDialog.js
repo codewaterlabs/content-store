@@ -33,7 +33,10 @@ export default class SignupDialog extends React.Component {
                                     password: values.password
                                 }
                             }).then(
-                                () => {
+                                data => {
+                                    console.log(data)
+                                    localStorage.setItem('token', data.signup.token)
+                                    localStorage.setItem('user', data.signup.user.name)
                                     setSubmitting(false)
                                 },
                                 error => {
