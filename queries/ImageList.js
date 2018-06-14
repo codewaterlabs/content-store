@@ -9,4 +9,4 @@ const IMAGE_LIST = gql`
     }
 `;
 
-export default { IMAGE_LIST };
+export { IMAGE_LIST };

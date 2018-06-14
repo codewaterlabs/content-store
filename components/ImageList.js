@@ -3,7 +3,7 @@ import { Query, Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import GridList from 'material-ui/GridList';
 import GridListTile from 'material-ui/GridList/GridListTile';
-import queries from '../queries/ImageList'
+import { IMAGE_LIST } from '../queries/ImageList'
 
 const uploadFileMutation = gql`
     mutation($image: Upload!) {
@@ -22,7 +22,7 @@ const ImageUpload = () => (
                 mutate({
                     variables: { image },
                     refetchQueries: [{
-                        query: queries.IMAGE_LIST
+                        query: IMAGE_LIST
                     }]
                 })
             }}>
@@ -38,7 +38,7 @@ class ImageList extends React.Component {
 
     render() {
         return (
-            <Query query={queries.IMAGE_LIST}>
+            <Query query={IMAGE_LIST}>
                 {({ loading, error, data }) => {
                     if (loading) return 'Loading...';
                     if (error) return `Error! ${error.message}`;
