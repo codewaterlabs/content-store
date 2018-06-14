@@ -30,4 +30,8 @@ export const Query = {
     const id = getUserId(ctx)
     return ctx.db.query.user({ where: { id } }, info)
   },
+
+  users(parent, args, ctx: Context, info) {
+    return ctx.db.query.users({}, info)
+  }
 }

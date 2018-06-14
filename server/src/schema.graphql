@@ -29,5 +29,6 @@ type Query {
   drafts: [Post!]!
   post(id: ID!): Post
   images: [Image]!
+  users: [User]!
   me: User
 }

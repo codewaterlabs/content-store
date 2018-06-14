@@ -26,17 +26,27 @@ export default class SignupDialog extends React.Component {
                             password: yup.string().required()
                         })}
                         onSubmit={(values, { setSubmitting }) => {
-                            setTimeout(() => {
-                                setSubmitting(false)
-                                console.log(values)
-                            }, 2000)
+                            mutate({
+                                variables: {
+                                    name: values.name,
+                                    email: values.email,
+                                    password: values.password
+                                }
+                            }).then(
+                                () => {
+                                    setSubmitting(false)
+                                },
+                                error => {
+                                    setSubmitting(false)
+                                    console.log(error)
+                                }
+                            )
                         }}
                         render={({ handleSubmit, isSubmitting, values }) => (
                             <Form>
                                 <Dialog
                                     open={this.props.open}
-                                    onClose={this.props.handleClose}
-                                >
+                                    onClose={this.props.handleClose}>
                                     <DialogTitle>Create user</DialogTitle>
                                     <DialogContent>
                                         <DialogContentText>
