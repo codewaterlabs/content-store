@@ -1,7 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import withRoot from '../src/withRoot'
-import LoginDialog from "../components/LoginDialog"
+import SignupDialog from "../components/SignupDialog"
 
 class Index extends React.Component {
     constructor(props) {
@@ -11,7 +10,7 @@ class Index extends React.Component {
     render() {
         return (
             <div>
-                <LoginDialog />
+                <SignupDialog />
             </div>
         );
     }

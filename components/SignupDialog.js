@@ -1,14 +1,13 @@
-import { Dialog, LinearProgress } from "material-ui";
-import { DialogTitle } from "material-ui";
-import { DialogContent } from "material-ui";
-import { DialogContentText } from "material-ui";
-import { DialogActions } from "material-ui";
+import { LinearProgress, Paper } from "material-ui";
 import { Button } from "material-ui";
 import { CREATE_USER } from "../queries/User"
 import { Mutation } from "react-apollo"
 import { Formik, Form, Field } from "formik"
 import TextField from "../components/formik/TextField"
 import * as yup from "yup"
+import { auth } from "../src/session";
+import Typography from "material-ui/Typography";
+import Router from "next/router"
 
 export default class SignupDialog extends React.Component {
     constructor(props) {
@@ -35,8 +34,7 @@ export default class SignupDialog extends React.Component {
                             }).then(
                                 data => {
                                     console.log(data)
-                                    localStorage.setItem('token', data.signup.token)
-                                    localStorage.setItem('user', data.signup.user.name)
+                                    auth(data.signup.token, data.signup.name)
                                     setSubmitting(false)
                                 },
                                 error => {
@@ -47,42 +45,33 @@ export default class SignupDialog extends React.Component {
                         }}
                         render={({ handleSubmit, isSubmitting, values }) => (
                             <Form>
-                                <Dialog
-                                    open={this.props.open}
-                                    onClose={this.props.handleClose}>
-                                    <DialogTitle>Create user</DialogTitle>
-                                    <DialogContent>
-                                        <DialogContentText>
-                                            Create user
-                                    </DialogContentText>
-                                        <Field
-                                            name="name"
-                                            label="Name"
-                                            fullWidth
-                                            component={TextField} />
-                                        <Field
-                                            name="email"
-                                            label="Email address"
-                                            type="email"
-                                            fullWidth
-                                            component={TextField} />
-                                        <Field
-                                            name="password"
-                                            label="Password"
-                                            type="password"
-                                            fullWidth
-                                            component={TextField} />
-                                    </DialogContent>
+                                <Paper style={{ width: 400, margin: "auto", marginTop: 50, padding: 25 }}>
+                                    <Typography variant="headline">Create user</Typography>
+                                    <Field
+                                        name="name"
+                                        label="Name"
+                                        fullWidth
+                                        component={TextField} />
+                                    <Field
+                                        name="email"
+                                        label="Email address"
+                                        type="email"
+                                        fullWidth
+                                        component={TextField} />
+                                    <Field
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        fullWidth
+                                        component={TextField} />
                                     {isSubmitting && <LinearProgress />}
-                                    <DialogActions>
-                                        <Button onClick={this.props.handleClose}>
-                                            Cancel
+                                    <Button variant="raised" color="primary" onClick={handleSubmit} disabled={isSubmitting}>
+                                        Create user
                                     </Button>
-                                        <Button onClick={handleSubmit} disabled={isSubmitting}>
-                                            Create user
+                                    <Button onClick={() => Router.push({ pathname: '/' })}>
+                                        Login
                                     </Button>
-                                    </DialogActions>
-                                </Dialog>
+                                </Paper>
                             </Form>
                         )}
                     />

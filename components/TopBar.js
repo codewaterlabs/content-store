@@ -1,8 +1,8 @@
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Button from 'material-ui/Button'
-import SignupDialog from './SignupDialog';
-import LoginDialog from './LoginDialog';
+import { getCookie, logout } from '../src/session';
+import Router from "next/router"
 
 export default class TopBar extends React.Component {
     constructor(props) {
@@ -29,20 +29,26 @@ export default class TopBar extends React.Component {
         this.setState({ loginOpen: true })
     }
 
+    handleLogout = () => {
+        logout()
+        Router.push({ pathname: "/" })
+    }
+
     render() {
-        const user = localStorage.getItem('user');
+        const user = getCookie("name");
         return (
             <div>
                 <AppBar position="static">
                     <Toolbar>
-                        <Button onClick={this.handleLoginOpen}>Login</Button>
-                        <Button onClick={this.handleSignupOpen}>Create user</Button>
-                        <LoginDialog open={this.state.loginOpen} handleClose={this.handleLoginClose} />
-                        <SignupDialog open={this.state.signupOpen} handleClose={this.handleSignupClose} />
-                        {user && user}
+                        {user && (
+                            <div>
+                                user
+                                <Button onClick={this.handleLogout}>Logout</Button>
+                            </div>
+                        )}
                     </Toolbar>
                 </AppBar>
-            </div>
+            </div >
         )
     }
 }

@@ -1,8 +1,4 @@
-import { Dialog } from "material-ui";
-import { DialogTitle } from "material-ui";
-import { DialogContent } from "material-ui";
-import { DialogContentText } from "material-ui";
-import { DialogActions } from "material-ui";
+import { Paper } from "material-ui";
 import { Button } from "material-ui";
 import { LOGIN } from "../queries/User";
 import { Mutation } from "react-apollo";
@@ -10,6 +6,9 @@ import { Formik, Form, Field } from "formik";
 import TextField from "../components/formik/TextField"
 import * as yup from "yup"
 import { LinearProgress } from "material-ui";
+import { auth } from "../src/session"
+import Typography from "material-ui/Typography";
+import Router from "next/router"
 
 export default class LoginDialog extends React.Component {
     constructor(props) {
@@ -34,9 +33,8 @@ export default class LoginDialog extends React.Component {
                             }).then(
                                 data => {
                                     console.log(data)
-                                    localStorage.setItem('token', data.data.login.token)
-                                    localStorage.setItem('user', data.data.login.user.name)
-                                    setSubmitting(false)
+                                    auth(data.data.login.token, data.data.login.user.name)
+                                    Router.push({ pathname: "/editor" })
                                 },
                                 error => {
                                     setSubmitting(false)
@@ -46,38 +44,28 @@ export default class LoginDialog extends React.Component {
                         }}
                         render={({ handleSubmit, isSubmitting, values }) => (
                             <Form>
-                                <Dialog
-                                    open={this.props.open}
-                                    onClose={this.props.handleClose}
-                                >
-                                    <DialogTitle>Login</DialogTitle>
-                                    <DialogContent>
-                                        <DialogContentText>
-                                            Login
-                                    </DialogContentText>
-                                        <Field
-                                            name="email"
-                                            label="Email address"
-                                            type="email"
-                                            fullWidth
-                                            component={TextField} />
-                                        <Field
-                                            name="password"
-                                            label="Password"
-                                            type="password"
-                                            fullWidth
-                                            component={TextField} />
-                                    </DialogContent>
+                                <Paper style={{ width: 400, margin: "auto", marginTop: 50, padding: 25 }}>
+                                    <Typography variant="headline">Login</Typography>
+                                    <Field
+                                        name="email"
+                                        label="Email address"
+                                        type="email"
+                                        fullWidth
+                                        component={TextField} />
+                                    <Field
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        fullWidth
+                                        component={TextField} />
                                     {isSubmitting && <LinearProgress />}
-                                    <DialogActions>
-                                        <Button onClick={this.props.handleClose}>
-                                            Cancel
-                                        </Button>
-                                        <Button onClick={handleSubmit}>
-                                            Login
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
+                                    <Button variant="raised" color="primary" onClick={handleSubmit} disabled={isSubmitting}>
+                                        Login
+                                    </Button>
+                                    <Button onClick={() => Router.push({ pathname: '/create_user' })}>
+                                        Create account
+                                    </Button>
+                                </Paper>
                             </Form>
                         )}
                     />
