@@ -1,8 +1,10 @@
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Button from 'material-ui/Button'
-import { getCookie, logout } from '../src/session';
+import { getCookie, logout, UserContext } from '../src/session';
 import Router from "next/router"
+
+
 
 export default class TopBar extends React.Component {
     constructor(props) {
@@ -35,19 +37,22 @@ export default class TopBar extends React.Component {
     }
 
     render() {
-        const user = getCookie("name");
         return (
             <div>
-                <AppBar position="static">
-                    <Toolbar>
-                        {user && (
-                            <div>
-                                user
-                                <Button onClick={this.handleLogout}>Logout</Button>
-                            </div>
-                        )}
-                    </Toolbar>
-                </AppBar>
+                <UserContext.Consumer>
+                    {({ token, name }) => (
+                        <AppBar position="static">
+                            <Toolbar>
+                                {token && (
+                                    <span>
+                                        <span>{name}</span>
+                                        <Button onClick={this.handleLogout}>Logout</Button>
+                                    </span>
+                                )}
+                            </Toolbar>
+                        </AppBar>
+                    )}
+                </UserContext.Consumer>
             </div >
         )
     }

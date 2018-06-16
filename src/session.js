@@ -1,4 +1,5 @@
 import cookie from "js-cookie"
+import React from 'react'
 
 export const setCookie = (key, value) => {
     if (process.browser) {
@@ -17,7 +18,7 @@ export const removeCookie = (key) => {
     }
 }
 
-export const getCookie = (key, req) => {
+export const getCookie = (key, req = {}) => {
     if (process.browser) {
         return cookie.get(key)
     } else {
@@ -49,4 +50,7 @@ export const logout = (ctx = {}) => {
         removeCookie("token")
         removeCookie("name")
     }
+    // todo: resetStore
 }
+
+export const UserContext = React.createContext('userData')

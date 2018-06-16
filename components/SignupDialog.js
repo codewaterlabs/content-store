@@ -32,10 +32,10 @@ export default class SignupDialog extends React.Component {
                                     password: values.password
                                 }
                             }).then(
-                                data => {
+                                ({ data }) => {
                                     console.log(data)
-                                    auth(data.signup.token, data.signup.name)
-                                    setSubmitting(false)
+                                    auth(data.login.token, data.login.user.name)
+                                    Router.push({ pathname: "/editor" })
                                 },
                                 error => {
                                     setSubmitting(false)

@@ -31,9 +31,9 @@ export default class LoginDialog extends React.Component {
                                     password: values.password
                                 }
                             }).then(
-                                data => {
+                                ({ data }) => {
                                     console.log(data)
-                                    auth(data.data.login.token, data.data.login.user.name)
+                                    auth(data.login.token, data.login.user.name)
                                     Router.push({ pathname: "/editor" })
                                 },
                                 error => {

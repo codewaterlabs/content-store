@@ -3,6 +3,7 @@ import { HttpLink } from 'apollo-boost'
 import { InMemoryCache } from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
 import { createUploadLink } from 'apollo-upload-client';
+import { getCookie } from './session';
 
 let apolloClient = null
 
@@ -21,10 +22,11 @@ function create(initialState) {
         }),
         cache: new InMemoryCache().restore(initialState || {}),
         request: operation => {
+            console.log("Doing request")
             operation.setContext(context => ({
                 headers: {
                     ...context.headers,
-                    authorization: localStorage.getItem('token')
+                    authorization: getCookie('token')
                 }
             }))
         }
