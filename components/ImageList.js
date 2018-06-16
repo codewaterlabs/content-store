@@ -1,8 +1,8 @@
 import DropZone from 'react-dropzone';
 import { Query, Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
-import GridList from 'material-ui/GridList';
-import GridListTile from 'material-ui/GridList/GridListTile';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
 import { IMAGE_LIST } from '../queries/ImageList'
 
 const uploadFileMutation = gql`

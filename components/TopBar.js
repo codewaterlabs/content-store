@@ -1,10 +1,22 @@
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import Button from 'material-ui/Button'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Button from '@material-ui/core/Button'
 import { getCookie, logout, UserContext } from '../src/session';
 import Router from "next/router"
 
 
+const UserControls = ({ userData, handleLogout }) => {
+    if (userData.token) {
+        return (
+            <span>
+                <span>{userData.name}</span>
+                <Button onClick={handleLogout}>Logout</Button>
+            </span>
+        )
+    } else {
+        return null
+    }
+}
 
 export default class TopBar extends React.Component {
     constructor(props) {
@@ -40,15 +52,10 @@ export default class TopBar extends React.Component {
         return (
             <div>
                 <UserContext.Consumer>
-                    {({ token, name }) => (
+                    {userData => (
                         <AppBar position="static">
                             <Toolbar>
-                                {token && (
-                                    <span>
-                                        <span>{name}</span>
-                                        <Button onClick={this.handleLogout}>Logout</Button>
-                                    </span>
-                                )}
+                                <UserControls userData={userData} handleLogout={this.handleLOgout} />
                             </Toolbar>
                         </AppBar>
                     )}

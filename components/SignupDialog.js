@@ -1,12 +1,12 @@
-import { LinearProgress, Paper } from "material-ui";
-import { Button } from "material-ui";
+import { LinearProgress, Paper } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { CREATE_USER } from "../queries/User"
 import { Mutation } from "react-apollo"
 import { Formik, Form, Field } from "formik"
 import TextField from "../components/formik/TextField"
 import * as yup from "yup"
 import { auth } from "../src/session";
-import Typography from "material-ui/Typography";
+import Typography from "@material-ui/core/Typography";
 import Router from "next/router"
 
 export default class SignupDialog extends React.Component {
@@ -34,7 +34,7 @@ export default class SignupDialog extends React.Component {
                             }).then(
                                 ({ data }) => {
                                     console.log(data)
-                                    auth(data.login.token, data.login.user.name)
+                                    auth(data.signup.token, data.signup.user.name)
                                     Router.push({ pathname: "/editor" })
                                 },
                                 error => {

@@ -1,6 +1,6 @@
 import { RichUtils, Editor, EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 import Head from 'next/head';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 
 const emptyContentState = convertFromRaw({
     entityMap: {},

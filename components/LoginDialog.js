@@ -1,13 +1,13 @@
-import { Paper } from "material-ui";
-import { Button } from "material-ui";
+import { Paper } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { LOGIN } from "../queries/User";
 import { Mutation } from "react-apollo";
 import { Formik, Form, Field } from "formik";
 import TextField from "../components/formik/TextField"
 import * as yup from "yup"
-import { LinearProgress } from "material-ui";
+import { LinearProgress } from "@material-ui/core";
 import { auth } from "../src/session"
-import Typography from "material-ui/Typography";
+import Typography from "@material-ui/core/Typography";
 import Router from "next/router"
 
 export default class LoginDialog extends React.Component {
