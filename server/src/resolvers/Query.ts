@@ -23,6 +23,8 @@ export const Query = {
   },
 
   images(parent, args, ctx: Context, info) {
+    const id = getUserId(ctx)
+    console.log(id);
     return ctx.db.query.images({}, info)
   },
 
