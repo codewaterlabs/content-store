@@ -11,14 +11,17 @@ const storeUpload = ({ stream, filename }) =>
 
 export const image = {
     async uploadImage(parent, { image }, ctx: Context, info) {
-        //const userId = getUserId(ctx)
+        const userId = getUserId(ctx)
         const { stream, filename } = await image
         await storeUpload({ stream, filename })
         console.log("Filename: ", filename);
         return ctx.db.mutation.createImage(
             {
                 data: {
-                    filename
+                    filename,
+                    user: {
+                        connect: { id: userId }
+                    }
                 }
             },
             info

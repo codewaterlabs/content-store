@@ -1,5 +1,5 @@
-# source: http://localhost:4466
-# timestamp: Sun Jun 10 2018 13:24:38 GMT+0200 (CEST)
+# source: http://192.168.99.100:4466
+# timestamp: Sun Jun 17 2018 13:34:09 GMT+0200 (CEST)
 
 type AggregateImage {
   count: Int!
@@ -25,6 +25,7 @@ type Image implements Node {
   filename: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user(where: UserWhereInput): User!
 }
 
 """A connection to a list of items."""
@@ -39,6 +40,7 @@ type ImageConnection {
 
 input ImageCreateInput {
   filename: String!
+  user: UserCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -109,6 +111,7 @@ input ImageSubscriptionWhereInput {
 
 input ImageUpdateInput {
   filename: String
+  user: UserUpdateOneInput
 }
 
 input ImageWhereInput {
@@ -244,6 +247,7 @@ input ImageWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  user: UserWhereInput
 }
 
 input ImageWhereUniqueInput {
@@ -680,6 +684,11 @@ input UserCreateInput {
   posts: PostCreateManyWithoutAuthorInput
 }
 
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutPostsInput {
   create: UserCreateWithoutPostsInput
   connect: UserWhereUniqueInput
@@ -761,11 +770,26 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  name: String
+  posts: PostUpdateManyWithoutAuthorInput
+}
+
 input UserUpdateInput {
   email: String
   password: String
   name: String
   posts: PostUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
 }
 
 input UserUpdateOneWithoutPostsInput {
@@ -780,6 +804,11 @@ input UserUpdateWithoutPostsDataInput {
   email: String
   password: String
   name: String
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutPostsInput {

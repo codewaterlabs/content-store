@@ -28,6 +28,7 @@ type Image implements Node {
   filename: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user(where: UserWhereInput): User!
 }
 
 """
@@ -47,6 +48,7 @@ type ImageConnection {
 
 input ImageCreateInput {
   filename: String!
+  user: UserCreateOneInput!
 }
 
 """
@@ -122,6 +124,7 @@ input ImageSubscriptionWhereInput {
 
 input ImageUpdateInput {
   filename: String
+  user: UserUpdateOneInput
 }
 
 input ImageWhereInput {
@@ -301,6 +304,7 @@ input ImageWhereInput {
   All values greater than or equal the given value.
   """
   updatedAt_gte: DateTime
+  user: UserWhereInput
 }
 
 input ImageWhereUniqueInput {
@@ -776,6 +780,11 @@ input UserCreateInput {
   posts: PostCreateManyWithoutAuthorInput
 }
 
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutPostsInput {
   create: UserCreateWithoutPostsInput
   connect: UserWhereUniqueInput
@@ -862,11 +871,26 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  name: String
+  posts: PostUpdateManyWithoutAuthorInput
+}
+
 input UserUpdateInput {
   email: String
   password: String
   name: String
   posts: PostUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
 }
 
 input UserUpdateOneWithoutPostsInput {
@@ -881,6 +905,11 @@ input UserUpdateWithoutPostsDataInput {
   email: String
   password: String
   name: String
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutPostsInput {
@@ -1213,11 +1242,10 @@ export type MutationType =
   'UPDATED' |
   'DELETED'
 
-export interface PostCreateInput {
-  isPublished?: Boolean
-  title: String
-  text: String
-  author: UserCreateOneWithoutPostsInput
+export interface UserCreateWithoutPostsInput {
+  email: String
+  password: String
+  name: String
 }
 
 export interface PostWhereInput {
@@ -1287,11 +1315,10 @@ export interface PostWhereInput {
   author?: UserWhereInput
 }
 
-export interface UserCreateInput {
-  email: String
-  password: String
-  name: String
-  posts?: PostCreateManyWithoutAuthorInput
+export interface PostCreateWithoutAuthorInput {
+  isPublished?: Boolean
+  title: String
+  text: String
 }
 
 export interface UserWhereInput {
@@ -1359,14 +1386,25 @@ export interface UserWhereInput {
   posts_none?: PostWhereInput
 }
 
+export interface PostUpdateWithoutAuthorDataInput {
+  isPublished?: Boolean
+  title?: String
+  text?: String
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+}
+
 export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
   where: PostWhereUniqueInput
   data: PostUpdateWithoutAuthorDataInput
 }
 
-export interface PostCreateManyWithoutAuthorInput {
-  create?: PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput
-  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput
+export interface ImageCreateInput {
+  filename: String
+  user: UserCreateOneInput
 }
 
 export interface PostUpdateManyWithoutAuthorInput {
@@ -1426,25 +1464,38 @@ export interface ImageWhereUniqueInput {
   id?: ID_Input
 }
 
+export interface PostCreateInput {
+  isPublished?: Boolean
+  title: String
+  text: String
+  author: UserCreateOneWithoutPostsInput
+}
+
+export interface UserUpdateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateDataInput
+  upsert?: UserUpsertNestedInput
+}
+
+export interface UserCreateOneWithoutPostsInput {
+  create?: UserCreateWithoutPostsInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput
+  update: PostUpdateWithoutAuthorDataInput
+  create: PostCreateWithoutAuthorInput
+}
+
 export interface UserUpdateOneWithoutPostsInput {
   create?: UserCreateWithoutPostsInput
   connect?: UserWhereUniqueInput
   delete?: Boolean
   update?: UserUpdateWithoutPostsDataInput
   upsert?: UserUpsertWithoutPostsInput
-}
-
-export interface PostUpdateWithoutAuthorDataInput {
-  isPublished?: Boolean
-  title?: String
-  text?: String
-}
-
-export interface PostUpdateInput {
-  isPublished?: Boolean
-  title?: String
-  text?: String
-  author?: UserUpdateOneWithoutPostsInput
 }
 
 export interface ImageWhereInput {
@@ -1495,31 +1546,43 @@ export interface ImageWhereInput {
   updatedAt_lte?: DateTime
   updatedAt_gt?: DateTime
   updatedAt_gte?: DateTime
+  user?: UserWhereInput
 }
 
-export interface UserCreateWithoutPostsInput {
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  email?: String
+}
+
+export interface PostUpdateInput {
+  isPublished?: Boolean
+  title?: String
+  text?: String
+  author?: UserUpdateOneWithoutPostsInput
+}
+
+export interface PostCreateManyWithoutAuthorInput {
+  create?: PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput
+  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput
+}
+
+export interface UserCreateInput {
   email: String
   password: String
   name: String
+  posts?: PostCreateManyWithoutAuthorInput
 }
 
-export interface UserCreateOneWithoutPostsInput {
-  create?: UserCreateWithoutPostsInput
-  connect?: UserWhereUniqueInput
+export interface UserUpdateDataInput {
+  email?: String
+  password?: String
+  name?: String
+  posts?: PostUpdateManyWithoutAuthorInput
 }
 
-export interface PostCreateWithoutAuthorInput {
-  isPublished?: Boolean
-  title: String
-  text: String
-}
-
-export interface ImageCreateInput {
-  filename: String
-}
-
-export interface ImageUpdateInput {
-  filename?: String
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
 }
 
 export interface ImageSubscriptionWhereInput {
@@ -1533,15 +1596,9 @@ export interface ImageSubscriptionWhereInput {
   node?: ImageWhereInput
 }
 
-export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput
-  update: PostUpdateWithoutAuthorDataInput
-  create: PostCreateWithoutAuthorInput
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-  email?: String
+export interface ImageUpdateInput {
+  filename?: String
+  user?: UserUpdateOneInput
 }
 
 /*
@@ -1564,6 +1621,7 @@ export interface Image extends Node {
   filename: String
   createdAt: DateTime
   updatedAt: DateTime
+  user: User
 }
 
 export interface Post extends Node {

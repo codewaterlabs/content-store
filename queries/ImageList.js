@@ -9,4 +9,12 @@ const IMAGE_LIST = gql`
     }
 `;
 
-export { IMAGE_LIST };
+const DELETE_IMAGE = gql`
+    mutation($id: ID!) {
+        deleteImage(id: $id) {
+            id
+        }
+    }
+`;
+
+export { IMAGE_LIST, DELETE_IMAGE };

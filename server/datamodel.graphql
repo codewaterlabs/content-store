@@ -21,4 +21,5 @@ type Image {
   filename: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User!
 }
