@@ -3,6 +3,7 @@ import React from 'react'
 import withApolloClient from '../src/withApolloClient'
 import { ApolloProvider } from 'react-apollo'
 import { getCookie, UserContext } from "../src/session"
+import TopBar from '../components/TopBar';
 
 
 class MyApp extends App {
@@ -24,6 +25,7 @@ class MyApp extends App {
 
     render() {
         const { Component, pageProps, apolloClient, userData } = this.props
+
         // Provide userData through react context
         return <Container>
             <ApolloProvider client={apolloClient}>

@@ -2,7 +2,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 import { getCookie, logout, UserContext } from '../src/session';
-import Router from "next/router"
+import { Router } from "../src/routes"
 
 
 const UserControls = ({ userData, handleLogout }) => {
@@ -45,7 +45,7 @@ export default class TopBar extends React.Component {
 
     handleLogout = () => {
         logout()
-        Router.push("/")
+        Router.pushRoute("/")
     }
 
     render() {

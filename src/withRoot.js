@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import getPageContext from './getPageContext';
 import CssBaseline from '@material-ui/core/CssBaseline'
+import TopBar from '../components/TopBar';
 
 function withRoot(Component) {
     class WithRoot extends React.Component {
@@ -22,6 +23,16 @@ function withRoot(Component) {
 
         pageContext = null;
 
+
+        topBar = (userData) => {
+            if (userData.token) {
+                return <TopBar />
+            } else {
+                return null
+            }
+        }
+
+
         render() {
             // MuiThemeProvider makes the theme available down the React tree thanks to React context.
             return (
@@ -31,6 +42,7 @@ function withRoot(Component) {
                 >
                     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                     <CssBaseline />
+                    <TopBar />
                     <Component {...this.props} />
                 </MuiThemeProvider>
             );

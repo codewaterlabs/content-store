@@ -4,7 +4,7 @@ type User {
   id: ID!
   email: String!
   name: String!
-  posts: [Post!]!
+  contents: [Post!]!
 }
 
 type AuthPayload {
@@ -27,6 +27,7 @@ type Mutation {
 type Query {
   feed: [Post!]!
   drafts: [Post!]!
+  posts: [Post]!
   post(id: ID!): Post
   images: [Image]!
   users: [User]!

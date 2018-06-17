@@ -20,6 +20,7 @@
     "js-cookie": "^2.2.0",
     "jss": "^9.8.3",
     "next": "^6.0.3",
+    "next-routes": "^1.4.2",
     "prop-types": "^15.6.1",
     "react": "^16.4.1",
     "react-apollo": "^2.1.5",

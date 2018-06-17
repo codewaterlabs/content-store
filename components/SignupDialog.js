@@ -7,7 +7,7 @@ import TextField from "../components/formik/TextField"
 import * as yup from "yup"
 import { auth } from "../src/session";
 import Typography from "@material-ui/core/Typography";
-import Router from "next/router"
+import { Router } from "../src/routes"
 
 export default class SignupDialog extends React.Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class SignupDialog extends React.Component {
                                 ({ data }) => {
                                     console.log(data)
                                     auth(data.signup.token, data.signup.user.name)
-                                    Router.push({ pathname: "/editor" })
+                                    Router.pushRoute("/editor")
                                 },
                                 error => {
                                     setSubmitting(false)
@@ -72,7 +72,7 @@ export default class SignupDialog extends React.Component {
                                         onClick={handleSubmit} disabled={isSubmitting}>
                                         Create user
                                     </Button>
-                                    <Button onClick={() => Router.push({ pathname: '/' })}>
+                                    <Button onClick={() => Router.pushRoute('/')}>
                                         Login
                                     </Button>
                                 </Paper>

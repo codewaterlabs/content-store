@@ -18,6 +18,12 @@ export const Query = {
     return ctx.db.query.posts({ where }, info)
   },
 
+  posts(parent, args, ctx: Context, info) {
+    const id = getUserId(ctx)
+    const where = {}
+    return ctx.db.query.posts({ where }, info)
+  },
+
   post(parent, { id }, ctx: Context, info) {
     return ctx.db.query.post({ where: { id: id } }, info)
   },

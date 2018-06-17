@@ -8,7 +8,7 @@ import * as yup from "yup"
 import { LinearProgress } from "@material-ui/core";
 import { auth } from "../src/session"
 import Typography from "@material-ui/core/Typography";
-import Router from "next/router"
+import { Router } from "../src/routes"
 
 export default class LoginDialog extends React.Component {
     constructor(props) {
@@ -34,7 +34,7 @@ export default class LoginDialog extends React.Component {
                                 ({ data }) => {
                                     console.log(data)
                                     auth(data.login.token, data.login.user.name)
-                                    Router.push({ pathname: "/editor" })
+                                    Router.pushRoute("/content-list")
                                 },
                                 error => {
                                     setSubmitting(false)
@@ -68,7 +68,7 @@ export default class LoginDialog extends React.Component {
                                         disabled={isSubmitting}>
                                         Login
                                     </Button>
-                                    <Button onClick={() => Router.push({ pathname: '/create_user' })}>
+                                    <Button onClick={() => Router.pushRoute('/create-user')}>
                                         Create account
                                     </Button>
                                 </Paper>
