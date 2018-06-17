@@ -51,6 +51,7 @@ export default class LoginDialog extends React.Component {
                                         label="Email address"
                                         type="email"
                                         fullWidth
+                                        autoFocus={true}
                                         component={TextField} />
                                     <Field
                                         name="password"
@@ -59,7 +60,12 @@ export default class LoginDialog extends React.Component {
                                         fullWidth
                                         component={TextField} />
                                     {isSubmitting && <LinearProgress />}
-                                    <Button variant="raised" color="primary" onClick={handleSubmit} disabled={isSubmitting}>
+                                    <Button
+                                        variant="raised"
+                                        type="submit"
+                                        color="primary"
+                                        onClick={handleSubmit}
+                                        disabled={isSubmitting}>
                                         Login
                                     </Button>
                                     <Button onClick={() => Router.push({ pathname: '/create_user' })}>

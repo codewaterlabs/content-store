@@ -45,7 +45,7 @@ export default class TopBar extends React.Component {
 
     handleLogout = () => {
         logout()
-        Router.push({ pathname: "/" })
+        Router.push("/")
     }
 
     render() {
@@ -55,7 +55,7 @@ export default class TopBar extends React.Component {
                     {userData => (
                         <AppBar position="static">
                             <Toolbar>
-                                <UserControls userData={userData} handleLogout={this.handleLOgout} />
+                                <UserControls userData={userData} handleLogout={this.handleLogout} />
                             </Toolbar>
                         </AppBar>
                     )}

@@ -65,7 +65,11 @@ export default class SignupDialog extends React.Component {
                                         fullWidth
                                         component={TextField} />
                                     {isSubmitting && <LinearProgress />}
-                                    <Button variant="raised" color="primary" onClick={handleSubmit} disabled={isSubmitting}>
+                                    <Button
+                                        variant="raised"
+                                        type="submit"
+                                        color="primary"
+                                        onClick={handleSubmit} disabled={isSubmitting}>
                                         Create user
                                     </Button>
                                     <Button onClick={() => Router.push({ pathname: '/' })}>
