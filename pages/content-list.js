@@ -5,7 +5,7 @@ import { Query } from 'react-apollo';
 import { POST_LIST } from '../queries/Post';
 import { List, ListItem, ListItemText, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add'
-import { Router } from '../src/routes'
+import { Router, Link } from '../src/routes'
 
 class MyEditor extends React.Component {
     constructor(props) {
@@ -25,9 +25,13 @@ class MyEditor extends React.Component {
                             </Button>
                             <List>
                                 {data.posts.map(post => (
-                                    <ListItem>
-                                        <ListItemText primary={post.title} />
-                                    </ListItem>
+                                    <Link key={post.id} route="editor" params={{ id: post.id }}>
+                                        <ListItem button={true} key={post.id} >
+                                            <ListItemText
+                                                button
+                                                primary={post.title} />
+                                        </ListItem>
+                                    </Link>
                                 ))}
                             </List>
                         </div>

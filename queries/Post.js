@@ -27,4 +27,12 @@ const DELETE_POST = gql`
     }
 `;
 
-export { POST_LIST, DELETE_POST, POST };
+const UPSERT_POST = gql`
+    mutation($id: ID, $title: String!, $text: String!) {
+        upsertPost(id: $id, title: $title, text: $text) {
+            id
+        }
+    }
+`;
+
+export { POST_LIST, DELETE_POST, POST, UPSERT_POST };

@@ -68,6 +68,7 @@ class MyEditor extends React.Component {
             console.log(convertToRaw(editorState.getCurrentContent()));
         };
         this.toggleBlock = this._toggleBlock.bind(this);
+        props.regEditorState(this.state.editorState)
     }
 
     _toggleBlock(blockType) {

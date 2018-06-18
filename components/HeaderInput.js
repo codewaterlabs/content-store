@@ -1,5 +1,6 @@
 import { withStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
+import TextField from './formik/TextField'
+import { Field } from 'formik';
 
 const styles = {
     textField: {
@@ -12,17 +13,18 @@ class HeaderInput extends React.Component {
         console.log(this.props);
         const { classes } = this.props;
         return (
-            <TextField
+            <Field
                 label="Heading"
-                id="heading"
+                name="title"
                 InputProps={{
                     classes: {
                         input: classes.textField
                     }
                 }}
-                fullWidth />
+                fullWidth
+                component={TextField} />
         )
     }
 }
 
-export default withStyles(styles)(HeaderInput);
+export default withStyles(styles)(HeaderInput)

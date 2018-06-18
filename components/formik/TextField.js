@@ -18,6 +18,7 @@ export default class FTextField extends React.Component {
                 onChange={onChange}
                 onBlur={onBlur}
                 type={this.props.type}
+                InputProps={this.props.InputProps}
                 name={name} />
         )
     }

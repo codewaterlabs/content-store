@@ -19,6 +19,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   createDraft(title: String!, text: String!): Post!
   publish(id: ID!): Post!
+  upsertPost(id: ID, title: String!, text: String!): Post!
   deletePost(id: ID!): Post!
   uploadImage(image: Upload!): Image!
   deleteImage(id: ID!): Image!

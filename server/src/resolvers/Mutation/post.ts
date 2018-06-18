@@ -37,6 +37,33 @@ export const post = {
     )
   },
 
+  async upsertPost(parent, { id, title, text }, ctx: Context, info) {
+    const userId = getUserId(ctx)
+    if (id) {
+      return ctx.db.mutation.updatePost(
+        {
+          where: { id },
+          data: { title, text },
+        },
+        info,
+      )
+    } else {
+      return ctx.db.mutation.createPost(
+        {
+          data: {
+            title,
+            text,
+            isPublished: false,
+            author: {
+              connect: { id: userId },
+            },
+          },
+        },
+        info
+      )
+    }
+  },
+
   async deletePost(parent, { id }, ctx: Context, info) {
     const userId = getUserId(ctx)
     const postExists = await ctx.db.exists.Post({
