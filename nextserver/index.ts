@@ -1,6 +1,7 @@
-const express = require('express')
-const next = require('next')
-const routes = require('./src/routes')
+import * as express from 'express'
+import * as next from 'next'
+const routes = require('../src/routes')
+const generate = require('../content-types/meta/generate')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -10,6 +11,10 @@ app.prepare().then(() => {
     const server = express();
 
     server.use('/uploads', express.static('uploads'))
+
+    server.get('/generate', (_req, _res) => {
+        generate()
+    })
 
     server.use(handler)
 
